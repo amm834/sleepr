@@ -1,6 +1,7 @@
 import { Logger, NotFoundException } from '@nestjs/common';
 import { AbstractDatabaseSchema } from './database.schema';
 import { FilterQuery, Model, Types, UpdateQuery } from 'mongoose';
+import { CreateIndexesOptions } from 'mongodb';
 
 export abstract class AbstractDatabaseRepository<
   TDocument extends AbstractDatabaseSchema,
@@ -54,5 +55,13 @@ export abstract class AbstractDatabaseRepository<
 
   async find(filterQuery: FilterQuery<TDocument>) {
     return this.model.find(filterQuery, {}, { lean: true });
+  }
+
+  async findOneAndDelete(filterQuery: FilterQuery<TDocument>) {
+    return this.model.findOneAndDelete(filterQuery, { lean: true });
+  }
+
+  async createIndex(options: CreateIndexesOptions) {
+    return this.model.createIndexes(options as any);
   }
 }
