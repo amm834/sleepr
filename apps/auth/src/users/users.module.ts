@@ -14,7 +14,6 @@ import { UserRepository } from './repositories';
         schema: UserSchema,
       },
     ]),
-    LoggerModule,
   ],
   controllers: [UsersController],
   providers: [UsersService, UserRepository],
